@@ -1,3 +1,4 @@
+# 通过 GITHUB ACTION 来自动更新生成记录贪食蛇动画，在 output 分支下就是 svg 文件，然后供 blog 使用
 name: Generate Snake Animation
 
 on:
