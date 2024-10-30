@@ -25,7 +25,6 @@ jobs:
           template: classic
           base: header, activity, community, repositories, metadata
           config_timezone: Asia/Shanghai
-          config_output: "dist/github-metrics.svg"
 
       # push the content of <build_dir> to a branch
       # the content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> , or as github page
@@ -33,6 +32,6 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: metrics
-          build_dir: dist
+          build_dir: .
         env:
           GITHUB_TOKEN: ${{ secrets.CZTANGT_TOKEN }}
