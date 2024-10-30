@@ -2,8 +2,8 @@ name: Metrics
 on:
   workflow_dispatch:
   schedule:
-    # equal UTC/GMT+8 "30 5,17 * * *"
-    - cron: "30 9,21 * * *"
+    # "24:00 action" - This cron expression will run the workflow at midnight (00:00) every day.
+    - cron: "0 0 * * *"
 
 jobs:
   github-metrics:
@@ -18,20 +18,20 @@ jobs:
       - name: generate github-metrics.svg
         uses: lowlighter/metrics@latest
         with:
+          filename: github-metrics.svg
           token: ${{ secrets.CZTANGT_TOKEN }}
           # Options
-          github_user_name: ${{ github.repository_owner }}
+          user: ${{ github.repository_owner }}
           template: classic
           base: header, activity, community, repositories, metadata
           config_timezone: Asia/Shanghai
-          outputs: |
-            dist/github-metrics.svg 
       # push the content of <build_dir> to a branch
       # the content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> , or as github page
+
       - name: push github-metrics.svg to the metrics branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
-          target_branch: output
-          build_dir: dist
+          target_branch: metrics
+          build_dir: .
         env:
           GITHUB_TOKEN: ${{ secrets.CZTANGT_TOKEN }}
